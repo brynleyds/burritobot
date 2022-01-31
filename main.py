@@ -6,7 +6,7 @@ import randominfo
 import random
 from selenium.webdriver.support.select import Select
 from random import randint
-
+from selenium.webdriver.common.alert import Alert
 s = Service('C:\Program Files (x86)\chromedriver.exe')
 driver = webdriver.Chrome(service=s)
 
@@ -52,17 +52,19 @@ sleep(1)
 Select(driver.find_element_by_id("user_fav_location_id")).select_by_visible_text("Morristown")
 sleep(5)
 driver.find_element_by_id("invisible-recaptcha").click()
-sleep(10)
+sleep(60)
 driver.find_element_by_id("redemption-offers").click()
 driver.get("https://iframe.punchh.com/whitelabel/salsaritas/offers")
-sleep(120)
-driver.send_keys(Keys.F5)
+
+alert = Alert(driver)
+
 sleep(10)
-code = driver.find_element_by_css_selector("congrats-code")
+driver.find_element_by_id("offer-submit").click()
+sleep(5)
+alert.accept()
+code = driver.find_element_by_class_name("congrats-code").text
+print("Code:")
 print(code)
-
-
-
 
 
 
